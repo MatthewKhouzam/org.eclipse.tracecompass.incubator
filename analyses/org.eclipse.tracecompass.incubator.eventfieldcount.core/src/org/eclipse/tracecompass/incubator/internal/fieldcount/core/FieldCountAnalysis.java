@@ -29,9 +29,10 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
-import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
-import org.eclipse.tracecompass.internal.provisional.analysis.lami.core.aspect.LamiGenericAspect;
+import org.eclipse.tracecompass.incubator.internal.fieldcount.core.LamiHelpers.LamiCategoryAspect;
+import org.eclipse.tracecompass.incubator.internal.fieldcount.core.LamiHelpers.LamiCountAspect;
+import org.eclipse.tracecompass.incubator.internal.fieldcount.core.LamiHelpers.LamiString;
 import org.eclipse.tracecompass.internal.provisional.analysis.lami.core.aspect.LamiTableEntryAspect;
 import org.eclipse.tracecompass.internal.provisional.analysis.lami.core.module.LamiAnalysis;
 import org.eclipse.tracecompass.internal.provisional.analysis.lami.core.module.LamiResultTable;
@@ -39,8 +40,6 @@ import org.eclipse.tracecompass.internal.provisional.analysis.lami.core.module.L
 import org.eclipse.tracecompass.internal.provisional.analysis.lami.core.module.LamiTableEntry;
 import org.eclipse.tracecompass.internal.provisional.analysis.lami.core.types.LamiData;
 import org.eclipse.tracecompass.internal.provisional.analysis.lami.core.types.LamiLongNumber;
-import org.eclipse.tracecompass.internal.provisional.analysis.lami.core.types.LamiTimeRange;
-import org.eclipse.tracecompass.internal.provisional.analysis.lami.core.types.LamiTimestamp;
 import org.eclipse.tracecompass.internal.tmf.core.filter.TmfFilterHelper;
 import org.eclipse.tracecompass.tmf.core.TmfCommonConstants;
 import org.eclipse.tracecompass.tmf.core.event.ITmfEvent;
@@ -156,7 +155,7 @@ public class FieldCountAnalysis extends LamiAnalysis {
                 }
                 List<LamiTableEntryAspect> tableAspects = Arrays.asList(new LamiCategoryAspect(entry.getKey(), 0), new LamiCountAspect("count", 1));
                 LamiTableClass tableClass = new LamiTableClass(entry.getKey(), entry.getKey(), tableAspects, Collections.emptySet());
-                LamiResultTable lrt = new LamiResultTable(createTimeRange(tr), tableClass, entries);
+                LamiResultTable lrt = new LamiResultTable(LamiHelpers.createTimeRange(tr), tableClass, entries);
                 results.add(lrt);
             }
         } catch (InterruptedException e) {
@@ -264,57 +263,5 @@ public class FieldCountAnalysis extends LamiAnalysis {
     }
     // end of copied from TmfEventsEditor
 
-    /**
-     * Todo, move to LAMI
-     */
-    private static LamiTimeRange createTimeRange(TmfTimeRange timeRange) {
-        return new LamiTimeRange(new LamiTimestamp(timeRange.getStartTime().toNanos()), new LamiTimestamp(timeRange.getStartTime().toNanos()));
-    }
-
-    /**
-     * Todo, move to LAMI
-     */
-    private final class LamiString extends LamiData {
-        private final String fElement;
-
-        private LamiString(String element) {
-            fElement = element;
-        }
-
-        @Override
-        public @NonNull String toString() {
-            return fElement;
-        }
-    }
-
-    /**
-     * Count aspect, generic
-     *
-     * TODO: move to LAMI
-     *
-     * @author Matthew Khouzam
-     *
-     */
-    private final class LamiCountAspect extends LamiGenericAspect {
-
-        private LamiCountAspect(String name, int column) {
-            super(name, null, column, true, false);
-        }
-    }
-
-    /**
-     * Category aspect, generic
-     *
-     * TODO: move to LAMI
-     *
-     * @author Matthew Khouzam
-     *
-     */
-    private final class LamiCategoryAspect extends LamiGenericAspect {
-
-        private LamiCategoryAspect(String name, int column) {
-            super(name, null, column, false, false);
-        }
-    }
 
 }

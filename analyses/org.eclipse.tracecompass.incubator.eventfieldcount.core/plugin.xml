@@ -7,6 +7,10 @@
             class="org.eclipse.tracecompass.incubator.internal.fieldcount.core.FieldCountAnalysis"
             id="org.eclipse.tracecompass.incubator.eventcount.core.eventcount">
       </analysis>
+      <analysis
+            class="org.eclipse.tracecompass.incubator.internal.fieldcount.core.CallstackThing"
+            id="org.eclipse.tracecompass.incubator.CallstackThing">
+      </analysis>
    </extension>
 
 </plugin>
