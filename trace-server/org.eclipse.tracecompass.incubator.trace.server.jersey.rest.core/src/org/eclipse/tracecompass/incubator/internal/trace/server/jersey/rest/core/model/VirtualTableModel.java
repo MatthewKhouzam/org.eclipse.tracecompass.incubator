@@ -32,6 +32,8 @@ public interface VirtualTableModel {
      */
     List<VirtualTableLine> getLines();
 
+    List<RawTableEntry> getRawData();
+
     /**
      * @return The low index.
      */

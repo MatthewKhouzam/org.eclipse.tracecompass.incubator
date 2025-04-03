@@ -482,6 +482,40 @@ public class DataProviderService {
     }
 
     /**
+     * Query the provider for the time graph tree
+     *
+     * @param expUUID
+     *            {@link UUID} of the experiment to query
+     * @param outputId
+     *            Output ID for the data provider to query
+     * @param queryParameters
+     *            Parameters to fetch time graph tree as described by
+     *            {@link QueryParameters}
+     * @return {@link GenericView} with the results
+     */
+    @POST
+    @Path("/timeGraph/{outputId}/tree/raw")
+    @Tag(name = TGR)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "API to get the Time Graph tree", description = TREE_ENTRIES, responses = {
+            @ApiResponse(responseCode = "200", description = "Returns a list of Time Graph entries. " +
+                    CONSISTENT_PARENT, content = @Content(schema = @Schema(implementation = TimeGraphTreeResponse.class))),
+            @ApiResponse(responseCode = "400", description = INVALID_PARAMETERS, content = @Content(schema = @Schema(implementation = String.class))),
+            @ApiResponse(responseCode = "404", description = PROVIDER_NOT_FOUND, content = @Content(schema = @Schema(implementation = String.class))),
+            @ApiResponse(responseCode = "405", description = NO_PROVIDER, content = @Content(schema = @Schema(implementation = String.class)))
+    })
+    public Response getTimeGraphTreeRaw(
+            @Parameter(description = EXP_UUID) @PathParam("expUUID") UUID expUUID,
+            @Parameter(description = OUTPUT_ID) @PathParam("outputId") String outputId,
+            @RequestBody(description = "Query parameters to fetch the timegraph tree. " + TIMERANGE_TREE, content = {
+                    @Content(examples = @ExampleObject("{\"parameters\":{" + TIMERANGE_EX_TREE +
+                            "}}"), schema = @Schema(implementation = TreeQueryParameters.class))
+            }, required = true) QueryParameters queryParameters) {
+        return getTree(expUUID, outputId+".raw", queryParameters);
+    }
+
+    /**
      * Query the provider for the time graph states
      *
      * @param expUUID
