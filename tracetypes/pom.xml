@@ -75,10 +75,16 @@
     <module>org.eclipse.tracecompass.incubator.jifa</module>
     <module>org.eclipse.tracecompass.incubator.jifa.core</module>
     <module>org.eclipse.tracecompass.incubator.jifa.core.tests</module>
+<<<<<<< Updated upstream
     <module>org.eclipse.tracecompass.incubator.dpdk</module>
     <module>org.eclipse.tracecompass.incubator.dpdk.core</module>
     <module>org.eclipse.tracecompass.incubator.dpdk.core.tests</module>
     <module>org.eclipse.tracecompass.incubator.dpdk.ui</module>
+=======
+    <module>org.eclipse.tracecompass.incubator.perfetto.proto</module>
+    <module>org.eclipse.tracecompass.incubator.perfetto.proto.core</module>
+    <module>org.eclipse.tracecompass.incubator.perfetto.proto.core.tests</module>
+>>>>>>> Stashed changes
     <!-- insert modules here -->
   </modules>
 

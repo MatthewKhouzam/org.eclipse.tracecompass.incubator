@@ -71,7 +71,7 @@ public final class BinaryFTraceFileMapping {
      */
     public void get(long index, byte[] dst) {
         MappedByteBuffer mappedBuffer = fMappedBuffers.get((int) (index / SEGMENT_LEN));
-        mappedBuffer.get((int)(index % SEGMENT_LEN), dst);
+        mappedBuffer.get((int)(index % SEGMENT_LEN));
     }
 
     /**
